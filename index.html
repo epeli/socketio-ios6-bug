@@ -1,33 +1,35 @@
 <!doctype html>
 <html>
   <head>
-    <title>iPad bug</title>
+    <title>iOS 6 Socket.IO bug</title>
   </head>
   <body>
-    <div id=status>Loading...</div>
-    <h1>iPad ShareJS bug<h1>
+    <h1>iOS 6 Socket.IO bug</h1>
+    <a href="https://github.com/epeli/socketio-ios6-bug">github</a>
 
-    <h2>Before ShareJS:</h2>
-    <div id=before-sharejs></div>
+    <h2>Image before connecting Socket.IO:</h2>
+    <div id=before-connect></div>
 
-    <h2>After ShareJS:</h2>
-    <div id=after-sharejs></div>
+    <h2>Image after Socket.IO connection:</h2>
+    <div id=after-connect>Loading...</div>
 
-
-  <script src="/channel/bcsocket.js"></script>
-  <script src="/share/share.uncompressed.js"></script>
-  <script src="/share/json.uncompressed.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script>
-    document.getElementById("before-sharejs").innerHTML = '<img src="/before' + parseInt(Math.random()*100000) + '/image.png" >';
-    sharejs.open("mydoc", "json", function(err, doc){
-      if (err) {
-        document.getElementById("status").innerHTML = "Failed to load ShareJS!";
-      }
-      console.log("sharejs", err, doc);
+    document.getElementById("before-connect").innerHTML =
+    '<img src="/before' + parseInt(Math.random()*100000) + '/image.png" >';
 
-      document.getElementById("status").innerHTML = "ShareJS loaded.";
+    var socket = io.connect();
 
-      document.getElementById("after-sharejs").innerHTML = '<img src="/after' + parseInt(Math.random()*100000) + '/image.png" >';
+    var container = document.getElementById("after-connect");
+    socket.on('connect', function () {
+      container.innerHTML = "Socket.IO connected. Loading the image in a bit";
+
+      // Use small timeout to properly expose this bug
+      setTimeout(function(){
+        container.innerHTML =
+          'Image should be here now: <img src="/after' + parseInt(Math.random()*100000) + '/image.png" >';
+        }, 1000);
+
     });
 
   </script>

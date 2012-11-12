@@ -1,4 +1,3 @@
-
 # iOS 6 does not download any images while long polling connection is active in Socket.IO
 
 Background:
@@ -6,6 +5,7 @@ Background:
   * http://www.devthought.com/2012/09/22/understanding-the-ios6-ajax-bugs/
   * http://www.realsoftwareblog.com/2012/09/ios-6-mobile-safari-web-applications.html
   * http://news.ycombinator.com/item?id=4552072
+  * ShareJS is broken too https://github.com/josephg/ShareJS/issues/142
 
 
 Reproducing:

@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>iPad bug</title>
+  </head>
+  <body>
+    <div id=status>Loading...</div>
+    <h1>iPad ShareJS bug<h1>
+
+    <h2>Before ShareJS:</h2>
+    <div id=before-sharejs></div>
+
+    <h2>After ShareJS:</h2>
+    <div id=after-sharejs></div>
+
+
+  <script src="/channel/bcsocket.js"></script>
+  <script src="/share/share.uncompressed.js"></script>
+  <script src="/share/json.uncompressed.js"></script>
+  <script>
+    document.getElementById("before-sharejs").innerHTML = '<img src="/before' + parseInt(Math.random()*100000) + '/image.png" >';
+    sharejs.open("mydoc", "json", function(err, doc){
+      if (err) {
+        document.getElementById("status").innerHTML = "Failed to load ShareJS!";
+      }
+      console.log("sharejs", err, doc);
+
+      document.getElementById("status").innerHTML = "ShareJS loaded.";
+
+      document.getElementById("after-sharejs").innerHTML = '<img src="/after' + parseInt(Math.random()*100000) + '/image.png" >';
+    });
+
+  </script>
+
+  </body>
+</html>
